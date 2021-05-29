@@ -1,0 +1,100 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "id_elecciones": 1,
+            "votos_senado": {
+                "nombre_1": "Joaquín",
+                "nombre_2": "Xavi",
+                "apellidos_1": "Díaz Ybarra",
+                "apellidos_2": "Jardo Barrero"
+            }
+        }
+    ],
+    "required": [
+        "id_elecciones",
+        "votos_senado"
+    ],
+    "properties": {
+        "id_elecciones": {
+            "$id": "#/properties/id_elecciones",
+            "type": "integer",
+            "title": "The id_elecciones schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                1
+            ]
+        },
+        "votos_senado": {
+            "$id": "#/properties/votos_senado",
+            "type": "object",
+            "title": "The votos_senado schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "nombre_1": "Joaquín",
+                    "nombre_2": "Xavi",
+                    "apellidos_1": "Díaz Ybarra",
+                    "apellidos_2": "Jardo Barrero"
+                }
+            ],
+            "required": [
+                "nombre_1",
+                "nombre_2",
+                "apellidos_1",
+                "apellidos_2"
+            ],
+            "properties": {
+                "nombre_1": {
+                    "$id": "#/properties/votos_senado/properties/nombre_1",
+                    "type": "string",
+                    "title": "The nombre_1 schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Joaquín"
+                    ]
+                },
+                "nombre_2": {
+                    "$id": "#/properties/votos_senado/properties/nombre_2",
+                    "type": "string",
+                    "title": "The nombre_2 schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Xavi"
+                    ]
+                },
+                "apellidos_1": {
+                    "$id": "#/properties/votos_senado/properties/apellidos_1",
+                    "type": "string",
+                    "title": "The apellidos_1 schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Díaz Ybarra"
+                    ]
+                },
+                "apellidos_2": {
+                    "$id": "#/properties/votos_senado/properties/apellidos_2",
+                    "type": "string",
+                    "title": "The apellidos_2 schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Jardo Barrero"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": true
+}

@@ -1,7 +1,7 @@
 <?php
 
 
-class VotosModel
+class VotoModel
 {
 
     private $id;

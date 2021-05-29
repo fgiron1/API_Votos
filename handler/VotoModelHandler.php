@@ -1,11 +1,11 @@
 <?php
 
 
-require_once("DatabaseModel.php");
+require_once("../connection/DatabaseModel.php");
 
 class VotosModelHandler
 {
-    public static function getOfferById($id){
+    public static function getVotoById($id){
 
         OfertaModel $oferta;
 
@@ -15,21 +15,21 @@ class VotosModelHandler
         $query = "SELECT * FROM Ofertas WHERE id = ?";
         $prep_query = $connection->prepare($query);
 
-        $prep_query->bind_param("ssssssi",
+       /* $prep_query->bind_param("ssssssi",
             $oferta->set,
             $puesto,
             $descripcion,
             $requisitos,
             $fecha_publicacion,
             $contacto,
-            $id));
+            $id));*/
 
         $prep_query->execute();
         //TODO: Devolver el recurso
 
     }
 
-    public static function getAllOffers(){
+    public static function getAllVotos(){
 
         $listaOfertas = array();
 
@@ -48,8 +48,8 @@ class VotosModelHandler
             //Se hashean las primary keys para no exponerlas en la URI
             $id = hash_hmac("sha256", $id, "mitesoro");
 
-            //Se instancia un nuevo VotosModel con la información extraída
-            $oferta = new VotosModel($id, $ofertante, $puesto, $descripcion, $requisitos, $fecha_publicacion, $contacto);
+            //Se instancia un nuevo VotoModel con la información extraída
+            $oferta = new VotoModel($id, $ofertante, $puesto, $descripcion, $requisitos, $fecha_publicacion, $contacto);
 
             //Se añade a la lista a devolver
             $listaOfertas[] = $oferta;
@@ -60,7 +60,7 @@ class VotosModelHandler
         $connection->close();
     }
 
-    public static function updateOffer($id, VotosModel $offer){
+    public static function updateVoto($id, VotoModel $offer){
 
         $dao = DatabaseModel::getInstance();
         $connection = $dao->getConnection();
@@ -68,7 +68,7 @@ class VotosModelHandler
         $query = "UPDATE Ofertas SET ofertante = ?, puesto = ?, descripcion = ?, requisitos = ?, fecha_publicacion = ?, contacto = ? WHERE id = ?";
         $prep_query = $connection->prepare($query);
 
-        $ofertante = $offer->getOfertante();
+        /*$ofertante = $offer->getOfertante();
         $puesto = $offer->getPuesto();
         $descripcion = $offer->getDescripcion();
         $requisitos = $offer->getRequisitos();
@@ -81,41 +81,41 @@ class VotosModelHandler
                                                        $requisitos,
                                                        $fecha_publicacion,
                                                        $contacto,
-                                                       $id); //Pasado por parámetros
+                                                       $id); //Pasado por parámetros*/
 
         return $prep_query->execute();
 
 
     }
 
-    public static function insertOffer(VotosModel $offer){
+    public static function insertVoto(VotoModel $offer){
 
         $dao = DatabaseModel::getInstance();
         $connection = $dao->getConnection();
 
         $query = "INSERT INTO TABLE Ofertas(ofertante, puesto, descripcion, requisitos, fecha_publicacion, contacto) " .
-                 "VALUES (?, ?, ?, ?, ?, ?)";
+            "VALUES (?, ?, ?, ?, ?, ?)";
 
         $prep_query = $connection->prepare($query);
+        /*
+                $ofertante = $offer->getOfertante();
+                $puesto = $offer->getPuesto();
+                $descripcion = $offer->getDescripcion();
+                $requisitos = $offer->getRequisitos();
+                $fecha_publicacion = $offer->getFechaPublicacion();
+                $contacto = $offer->getContacto();
 
-        $ofertante = $offer->getOfertante();
-        $puesto = $offer->getPuesto();
-        $descripcion = $offer->getDescripcion();
-        $requisitos = $offer->getRequisitos();
-        $fecha_publicacion = $offer->getFechaPublicacion();
-        $contacto = $offer->getContacto();
-
-        $prep_query->bind_param("ssssss", $ofertante,
-                                                 $puesto,
-                                                      $descripcion,
-                                                      $requisitos,
-                                                      $fecha_publicacion,
-                                                      $contacto);
+                $prep_query->bind_param("ssssss", $ofertante,
+                                                         $puesto,
+                                                              $descripcion,
+                                                              $requisitos,
+                                                              $fecha_publicacion,
+                                                              $contacto);*/
         return $prep_query->execute();
 
     }
 
-    public static function deleteOffer($id){
+    public static function deleteVoto($id){
 
         $dao = DatabaseModel::getInstance();
         $connection = $dao->getConnection();
@@ -130,15 +130,4 @@ class VotosModelHandler
 
 
     }
-
-    public static function isValid($id)
-    {
-        $res = false;
-
-        if (ctype_digit($id)) {
-            $res = true;
-        }
-        return $res;
-    }
-
 }
