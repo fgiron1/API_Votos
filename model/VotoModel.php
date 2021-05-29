@@ -5,12 +5,11 @@ class VotoModel
 {
 
     private $id;
-    private $ofertante;
-    private $puesto;
-    private $descripcion;
-    private $requisitos;
-    private $fecha_publicacion;
-    private $contacto; //teléfono y/o correo
+    private $id_votacion;
+    private $id_partido;
+    private $id_voto_senado;
+    private $instante_creacion;
+    private $tipo_votacion;
 
 
     public function jsonSerialize()

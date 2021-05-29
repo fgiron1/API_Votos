@@ -1,5 +1,15 @@
 {
     "require": {
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "gac/routing": "^2.0",
+        "league/oauth2-server": "^8.2",
+        "particle/filter": "^1.5",
+      "ext-sqlsrv": "*",
+        "ext-pdo": "*",
+        "justinrainbow/json-schema": "^5.2",
+        "phpseclib/phpseclib": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {"SimpleSAML\\":  "../../simplesaml/lib/SimpleSAML"}
     }
 }

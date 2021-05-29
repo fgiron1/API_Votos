@@ -1,101 +1,40 @@
 <?php
 
-require_once 'Request.php';
-require_once 'Response.php';
+use Gac\Routing\Exceptions\CallbackNotFound;
+use Gac\Routing\Exceptions\RouteNotFoundException;
+use Gac\Routing\Request;
+use Gac\Routing\Routes;
 
-//Autoload rules
-spl_autoload_register('apiAutoload');
-function apiAutoload()
-{
-    $res = false;
-    require_once("controller/Controller.php");
-    require_once("controller/NotFoundController.php");
-    require_once("controller/VotosController.php");
+include_once('utils/Middleware.php');
+include_once "vendor/autoload.php";
 
-    //If the class name ends in "Controller", then try to locate the class in the controller directory to include it (require_once)
-/*    if (preg_match('/[a-zA-Z]+Controller$/', $classname)) {
-        if (file_exists(__DIR__ . '/controller/' . $classname . '.php')) {
-//            echo "cargamos clase: " . __DIR__ . '/controller/' . $classname . '.php';
-            require_once (__DIR__ . 'controller/' . $classname . '.php');
-            $res = true;
-        }
-    } elseif (preg_match('/[a-zA-Z]+Model$/', $classname)) {
-        if (file_exists(__DIR__ . 'model/' . $classname . '.php')) {
-//            echo "<br/>cargamos clase: " . __DIR__ . '/model/' . $classname . '.php';
-            require_once (__DIR__ . 'model/' . $classname . '.php');
-//            echo "clase cargada.......................";
-            $res = true;
-        }
-    }*/
-    //Instead of having Views, like in a Model-View-Controller project,
-    //we will have a Response class. So we don't need the following.
-    //Although we could have different classes to generate the output,
-    //for example: JsonView, XmlView, HtmlView... I think in our case
-    //it will be better to have a single class to generate the output (Response class)
-    //elseif (preg_match('/[a-zA-Z]+View$/', $classname)) {
-    //    require_once __DIR__ . '/views/' . $classname . '.php';
-    //    $res = true;
-    //}
-    return $res;
+require_once '/var/simplesaml/lib/_autoload.php';
+
+$routes = new Routes();
+
+try {
+
+    $routes->add('/login', [HomeController::class, 'login'], Routes::GET);
+    $routes->add('/registro', [HomeController::class, 'registro'], Routes::POST);
+    $routes->add('/partidosConIntegrantes/{int:id_partido}', [PartidoController::class, 'getPartidoIntegrantesById'], Routes::GET);
+    $routes->add('/partido/{int:id_partido}', [PartidoController::class, 'getPartidoById'], Routes::GET);
+    $routes->add('/partido/', [PartidoController::class, 'getAllPartidos'], Routes::GET);
+    $routes->add('/candidatos_senado', [CandidatoSenadoController::class, 'getAllCandidatos'], Routes::GET);
+    $routes->add('/momento_cierre', [EleccionController::class, 'getInstanteCierre'], Routes::GET);
+    $routes->add('/elecciones_activas', [EleccionController::class, 'getAllEleccionesActivas'], Routes::GET);
+
+
+
+    $routes->middleware(['check_vote_format'])
+            ->add('/votar', [VotoController::class, 'votar', Routes::POST]);
+
+    $routes->route();
+} catch (RouteNotFoundException $ex) {
+    $routes->request->status(404, "Route not found")->send(["error" => ["message" => $ex->getMessage()]]);
+} catch (CallbackNotFound $ex) {
+    $routes->request->status(404, "Callback method not found")->send(["error" => ["message" => $ex->getMessage()]]);
+} catch (Exception $ex) {
+    $code = $ex->getCode() ?? 500;
+    $routes->request->status($code)->send(["error" => ["message" => $ex->getMessage()]]);
 }
-
-
-//Let's retrieve all the information from the request
-
-
-$verb = $_SERVER['REQUEST_METHOD'];
-//IMPORTANT: WITH CGI OR FASTCGI, PATH_INFO WILL NOT BE AVAILABLE!!!
-//SO WE NEED FPM OR PHP AS APACHE MODULE (UNSECURE, DEPRECATED) INSTEAD OF CGI OR FASTCGI
-$path_info = !empty($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : (!empty($_SERVER['ORIG_PATH_INFO']) ? $_SERVER['ORIG_PATH_INFO'] : '');
-$url_elements = explode('/', $path_info);
-//$url_elements = explode('/', $_SERVER['PATH_INFO']);
-$query_string = null;
-if (isset($_SERVER['QUERY_STRING'])) {
-    parse_str($_SERVER['QUERY_STRING'], $query_string);
-}
-$body = file_get_contents("php://input");
-if ($body === false) {
-    $body = null;
-}
-$content_type = null;
-if (isset($_SERVER['CONTENT_TYPE'])) {
-    $content_type = $_SERVER['CONTENT_TYPE'];
-}
-$accept = null;
-if (isset($_SERVER['HTTP_ACCEPT'])) {
-    $accept = $_SERVER['HTTP_ACCEPT'];
-}
-
-
-$req = new Request($verb, $url_elements, $query_string, $body, $content_type, $accept);
-
-
-//Usamos la variable $url_elements del objeto request que acabamos de instanciar
-//para enviar el request al controlador que le corresponda (Si en url elements dice LibroController,
-//pues se lo enviamos a un nuevo librocontroller, a través de:  $controller->$action_name($req);)
-// route the request to the right place
-
-//TODO IMPORTANTE HE CAMBIADO EN ESTA LINEA DE ABAJO EL INDICE DEL ARRAY DE 1 A 0 PORQUE 1 ME DECIA Q NO EXISTIA
-$controller_name = ucfirst($url_elements[1]) . 'Controller';
-if (class_exists($controller_name)) {
-    $controller = new $controller_name(); //Using a variable that contains a string which represents the name of a class as part of the code to instantiate an object of that class
-    $action_name = 'manage' . ucfirst(strtolower($verb)) . 'Verb';
-    $controller->$action_name($req);
-    //$result = $controller->$action_name($req);
-    //(print_r($result);
-} //If class does not exist, we will send the request to NotFoundController
-else {
-    $controller = new NotFoundController();
-    $controller->manage($req); //We don't care about the HTTP verb
-}
-
-//DEBUG / TESTING:
-echo "<br/>URL_ELEMENTS:" ;
-print_r ($req->getUrlElements());
-echo "<br/>VERB:" ;
-print_r ($req->getVerb());
-echo "<br/>QUERY_STRING:" ;
-print_r ($req->getQueryString());
-echo "<br/>BODY_PARAMS:" ;
-print_r ($req->getBodyParameters());
 

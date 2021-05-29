@@ -1,133 +1,70 @@
 <?php
 
 
-require_once("../connection/DatabaseModel.php");
+require_once("../model/connection/DatabaseModel.php");
+require_once("../model/VotoModel.php");
+use Gac\Routing\Request;
 
 class VotosModelHandler
 {
-    public static function getVotoById($id){
 
-        OfertaModel $oferta;
+    private $connection;
 
-        $dao = DatabaseModel::getInstance();
-        $connection = $dao->getConnection();
+    public function __construct(){
+        $this->connection = DatabaseModel::getInstance()->getConnection();
+    }
 
-        $query = "SELECT * FROM Ofertas WHERE id = ?";
-        $prep_query = $connection->prepare($query);
+    public function votar(Request $request){
 
-       /* $prep_query->bind_param("ssssssi",
-            $oferta->set,
-            $puesto,
-            $descripcion,
-            $requisitos,
-            $fecha_publicacion,
-            $contacto,
-            $id));*/
 
-        $prep_query->execute();
-        //TODO: Devolver el recurso
+
+        $query = "EXECUTE dbo.votar ";
+        $stmt = sqlsrv_query($this->connection, $query);
 
     }
 
-    public static function getAllVotos(){
+    public function getVotoById($id_voto){
 
-        $listaOfertas = array();
+        $results = Array();
 
-        $dao = DatabaseModel::getInstance();
-        $connection = $dao->getConnection();
+        $query = "SELECT id, id_eleccion, id_partido, id_votos_senado, instante_creacion FROM Votos WHERE id = ?";
+        $stmt = sqlsrv_query($this->connection, $query);
 
-        //TODO: Clase de constantes para poner los nombres de las tablas y pon el nombre de las columnas, no *
-        $query = "SELECT * FROM Ofertas";
-        $prep_query = $connection->prepare($query);
-        $prep_query->execute();
-
-        //La información extraída por fetch() se irá almacenando en las siguientes variables:
-        $prep_query->bind_result($id, $ofertante, $puesto, $descripcion, $requisitos, $fecha_publicacion, $contacto);
-        while($prep_query->fetch()){
-
-            //Se hashean las primary keys para no exponerlas en la URI
-            $id = hash_hmac("sha256", $id, "mitesoro");
-
-            //Se instancia un nuevo VotoModel con la información extraída
-            $oferta = new VotoModel($id, $ofertante, $puesto, $descripcion, $requisitos, $fecha_publicacion, $contacto);
-
-            //Se añade a la lista a devolver
-            $listaOfertas[] = $oferta;
+        if($stmt === false){
+            die;
+        } else {
+            //Each row is stored in $results array
+            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
+                array_push($results, $row, $id_voto);
+            }
         }
 
-        //TODO: Devolver el recurso
+        sqlsrv_free_stmt($stmt);
+        sqlsrv_close($this->connection);
 
-        $connection->close();
+        return $results;
     }
 
-    public static function updateVoto($id, VotoModel $offer){
+    public function getAllVotos(){
 
-        $dao = DatabaseModel::getInstance();
-        $connection = $dao->getConnection();
+        $results = Array();
 
-        $query = "UPDATE Ofertas SET ofertante = ?, puesto = ?, descripcion = ?, requisitos = ?, fecha_publicacion = ?, contacto = ? WHERE id = ?";
-        $prep_query = $connection->prepare($query);
+        $query = "SELECT id, id_eleccion, id_partido, id_votos_senado, instante_creacion FROM Votos WHERE id = ?";
+        $stmt = sqlsrv_query($this->connection, $query);
 
-        /*$ofertante = $offer->getOfertante();
-        $puesto = $offer->getPuesto();
-        $descripcion = $offer->getDescripcion();
-        $requisitos = $offer->getRequisitos();
-        $fecha_publicacion = $offer->getFechaPublicacion();
-        $contacto = $offer->getContacto();
+        if($stmt === false){
+            die;
+        } else {
+            //Each row is stored in $results array
+            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
+                array_push($results, $row, $id_voto);
+            }
+        }
 
-        $prep_query->bind_param("ssssssi", $ofertante,
-                                                  $puesto,
-                                                       $descripcion,
-                                                       $requisitos,
-                                                       $fecha_publicacion,
-                                                       $contacto,
-                                                       $id); //Pasado por parámetros*/
+        sqlsrv_free_stmt($stmt);
+        sqlsrv_close($this->connection);
 
-        return $prep_query->execute();
-
-
+        return $results;
     }
 
-    public static function insertVoto(VotoModel $offer){
-
-        $dao = DatabaseModel::getInstance();
-        $connection = $dao->getConnection();
-
-        $query = "INSERT INTO TABLE Ofertas(ofertante, puesto, descripcion, requisitos, fecha_publicacion, contacto) " .
-            "VALUES (?, ?, ?, ?, ?, ?)";
-
-        $prep_query = $connection->prepare($query);
-        /*
-                $ofertante = $offer->getOfertante();
-                $puesto = $offer->getPuesto();
-                $descripcion = $offer->getDescripcion();
-                $requisitos = $offer->getRequisitos();
-                $fecha_publicacion = $offer->getFechaPublicacion();
-                $contacto = $offer->getContacto();
-
-                $prep_query->bind_param("ssssss", $ofertante,
-                                                         $puesto,
-                                                              $descripcion,
-                                                              $requisitos,
-                                                              $fecha_publicacion,
-                                                              $contacto);*/
-        return $prep_query->execute();
-
-    }
-
-    public static function deleteVoto($id){
-
-        $dao = DatabaseModel::getInstance();
-        $connection = $dao->getConnection();
-
-        $query = "DELETE FROM Ofertas WHERE id = ?";
-
-        $prep_query = $connection->prepare($query);
-
-        $prep_query->bind_param($id);
-
-        return $prep_query->execute();
-
-
-    }
 }

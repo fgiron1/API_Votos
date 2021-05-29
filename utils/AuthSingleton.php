@@ -20,7 +20,7 @@ class AuthSingleton
     {
         if (self::$entryPoint == null)
         {
-            self::$entryPoint = new AuthSingleton();
+            self::$entryPoint = new Simple();
         }
 
         return self::$entryPoint;

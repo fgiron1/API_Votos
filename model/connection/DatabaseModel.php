@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Mysql database class - only one connection allowed (SINGLETON PATTERN)
+* SQL Server database connection class - only one connection allowed (SINGLETON PATTERN)
 */
 
 class DatabaseModel
@@ -17,9 +17,9 @@ class DatabaseModel
 
     public static function getInstance()
     {
-        //Syntax used to access static fields: class::$field_name
-        if (!(self::$_instance instanceof self)) { // If no instance of Database, then make one
-            self::$_instance = new self(); //it is the same as new Database()
+        // If no instance of Database, then make one
+        if (!(self::$_instance instanceof self)) {
+            self::$_instance = new self('../../../../simplesaml/database_config.php');
         }
         return self::$_instance;
     }
@@ -27,24 +27,40 @@ class DatabaseModel
 
     // Constructor
     // We could improve it by passing the config file path as a parameter
-    private function __construct()
+    private function __construct($relPath)
     {
         //config.ini could be used
 
-        $config = array("host" => "localhost:3306",
-        "dbname" => "myBD",
-        "username" => "myuser",
-        "password" => "mypassword");
+        //Sanitizing path input
 
-        // Try and connect to the database
-        $this->_connection = new mysqli($config['host'], $config['username'],
-            $config['password'], $config['dbname']);
+        //If file doesn't exist, realpath returns false
+        $path = realpath($relPath);
 
-        // Error handling
-        if ($this->_connection->connect_error) {
-            trigger_error("Failed to connect to MySQL: " . $this->_connection->connect_error,
-                E_USER_ERROR);
+        //Checks for file existence and don't look outside relPath
+        if(!$path || substr($path, 0, strlen($relPath) != $relPath)){
+            header('HTTP/1.1 404 Not Found');
+            echo "The requested file could not be found";
+            die;
         }
+
+        $config = include_once($relPath);
+
+        $serverName = $config['serverName'];
+
+        $connectionOptions = array(
+          'database' => $config['database'],
+          'uid' => $config['uid'],
+          'pwd' => $config['pwd']
+        );
+        // Try and connect to the database
+
+        $conn = sqlsrv_connect($serverName, $connectionOptions);
+        $conn->
+        if ($conn === false) {
+            self::formatErrors(sqlsrv_errors());
+            die;
+        }
+
     }
 
     // Prevents connection duplication. Instantly raises error
@@ -62,6 +78,18 @@ class DatabaseModel
     public function getConnection()
     {
         return $this->_connection;
+    }
+
+    public function formatErrors($errors)
+    {
+        // Display errors
+        echo "<h1>SQL Error:</h1>";
+        echo "Error information: <br/>";
+        foreach ($errors as $error) {
+            echo "SQLSTATE: ". $error['SQLSTATE'] . "<br/>";
+            echo "Code: ". $error['code'] . "<br/>";
+            echo "Message: ". $error['message'] . "<br/>";
+        }
     }
 
     

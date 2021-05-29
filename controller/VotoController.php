@@ -10,22 +10,27 @@ require_once '../../../simplesaml/lib/_autoload.php';
 require_once "../vendor/autoload.php";
 
 
-class VotosController
+class VotoController
 {
 
     private static Simple $auth;
-
+    private static VotosModelHandler $votoHandler;
 
     public function __construct(){
 
-        $authSingle = AuthSingleton::getInstance();
-
-        self::$auth = $authSingle->getInstance();
+        self::$auth = AuthSingleton::getInstance();
+        self::$votoHandler = new VotosModelHandler();
 
     }
 
     /**
      * Vote endpoint
+     *
+     * Sólo accesible tras la autenticación del usuario.
+     * Recibe la información del voto encriptada, que se desencripta y verifica.
+     * La verificación consiste en un filtrado del fichero JSON : debe contener exactamente los campos que se esperan, en función del tipo de votación que sea.
+     * Se controlarán, a su vez, los valores de cada campo, ya sean valores predefinidos (Partidos, consultable), o bien libres (candidatos del senado).
+     * Si pasa el filtrado, se persiste en la base de datos Votos, si no, devuelve un código de error.
      *
      * Inputs
      *
@@ -33,9 +38,7 @@ class VotosController
      *
      * Output
      *
-     * This endpoint is only accessible after user authentication.
-     * Doesn't redirect to auth endpoint because it doesn't follow the android
-     * application flow
+     *
      *
      */
     public function vote(Request $Request){
