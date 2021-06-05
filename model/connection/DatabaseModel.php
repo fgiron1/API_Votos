@@ -43,7 +43,7 @@ class DatabaseModel
             die;
         }
 
-        $config = include_once($relPath);
+        $config = include_once('/var/simplesaml/database_config.php');
 
         $serverName = $config['serverName'];
 
