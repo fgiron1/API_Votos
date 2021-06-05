@@ -1,6 +1,5 @@
 <?php
 
-include_once "../vendor/autoload.php";
 require_once "/var/www/API_-Votos_bueno/model/connection/DatabaseModel.php";
 
 class CandidatoSenadoModelHandler
