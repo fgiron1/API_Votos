@@ -41,8 +41,8 @@ class HomeController
         $auth = AuthSingleton::getInstance();
 
         $auth->requireAuth([
-            'ErrorURL' => '127.0.0.1:8000/failure',
-            'ReturnTo' => '127.0.0.1:8000/success'
+            'ErrorURL' => 'https://spserver.westeurope.cloudapp.azure.com/failure',
+            'ReturnTo' => 'https://spserver.westeurope.cloudapp.azure.com/success'
         ]);
 
         try {
