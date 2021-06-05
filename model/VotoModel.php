@@ -5,37 +5,41 @@ class VotoModel
 {
 
     private $id;
-    private $id_votacion;
-    private $id_partido;
+    private $id_eleccion;
+    private $id_voto_partido;
     private $id_voto_senado;
     private $instante_creacion;
-    private $tipo_votacion;
+
+    /**
+     * VotoModel constructor.
+     * @param $id
+     * @param $id_eleccion
+     * @param $id_voto_partido
+     * @param $id_voto_senado
+     * @param $instante_creacion
+     */
+
+    public function __construct($id, $id_eleccion, $id_voto_partido, $id_voto_senado, $instante_creacion)
+    {
+        $this->id = $id;
+        $this->id_eleccion = $id_eleccion;
+        $this->id_voto_partido = $id_voto_partido;
+        $this->id_voto_senado = $id_voto_senado;
+        $this->instante_creacion = $instante_creacion;
+    }
 
 
     public function jsonSerialize()
     {
         return array(
             'id' => $this->id,
-            'ofertante' => $this->ofertante,
-            'puesto' => $this->puesto,
-            'descripcion' => $this->descripcion,
-            'requisitos' => $this->requisitos,
-            'fecha_publicacion' => $this->fecha_publicacion,
-            'contacto' => $this->contacto
+            'id_eleccion' => $this->id_eleccion,
+            'id_voto_partido' => $this->id_voto_partido,
+            'id_voto_senado' => $this->id_voto_senado,
+            'instante_creacion' => $this->instante_creacion
         );
     }
 
-    function __construct($id, $ofertante, $puesto, $descripcion, $requisitos, $fecha_publicacion, $contacto){
-
-        $this->id = $id;
-        $this->ofertante = $ofertante;
-        $this->puesto = $puesto;
-        $this->descripcion = $descripcion;
-        $this->requisitos = $requisitos;
-        $this->fecha_publicacion = $fecha_publicacion;
-        $this->contacto = $contacto;
-
-    }
 
 
     /**
@@ -47,9 +51,9 @@ class VotoModel
     }
 
     /**
-     * @param positive-int $id
+     * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -57,96 +61,67 @@ class VotoModel
     /**
      * @return mixed
      */
-    public function getOfertante()
+    public function getIdEleccion()
     {
-        return $this->ofertante;
+        return $this->id_eleccion;
     }
 
     /**
-     * @param mixed $ofertante
+     * @param mixed $id_eleccion
      */
-    public function setOfertante($ofertante)
+    public function setIdEleccion($id_eleccion): void
     {
-        $this->ofertante = $ofertante;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPuesto()
-    {
-        return $this->puesto;
-    }
-
-    /**
-     * @param mixed $puesto
-     */
-    public function setPuesto($puesto)
-    {
-        $this->puesto = $puesto;
+        $this->id_eleccion = $id_eleccion;
     }
 
     /**
      * @return mixed
      */
-    public function getRequisitos()
+    public function getIdVotoPartido()
     {
-        return $this->requisitos;
+        return $this->id_voto_partido;
     }
 
     /**
-     * @param mixed $requisitos
+     * @param mixed $id_voto_partido
      */
-    public function setRequisitos($requisitos)
+    public function setIdVotoPartido($id_voto_partido): void
     {
-        $this->requisitos = $requisitos;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFechaPublicacion()
-    {
-        return $this->fecha_publicacion;
-    }
-
-    /**
-     * @param mixed $fecha_publicacion
-     */
-    public function setFechaPublicacion($fecha_publicacion)
-    {
-        $this->fecha_publicacion = $fecha_publicacion;
+        $this->id_voto_partido = $id_voto_partido;
     }
 
     /**
      * @return mixed
      */
-    public function getContacto()
+    public function getIdVotoSenado()
     {
-        return $this->contacto;
+        return $this->id_voto_senado;
     }
 
     /**
-     * @param mixed $contacto
+     * @param mixed $id_voto_senado
      */
-    public function setContacto($contacto)
+    public function setIdVotoSenado($id_voto_senado): void
     {
-        $this->contacto = $contacto;
+        $this->id_voto_senado = $id_voto_senado;
     }
+
     /**
      * @return mixed
      */
-    public function getDescripcion()
+    public function getInstanteCreacion()
     {
-        return $this->descripcion;
+        return $this->instante_creacion;
     }
 
     /**
-     * @param mixed $descripcion
+     * @param mixed $instante_creacion
      */
-    public function setDescripcion($descripcion)
+    public function setInstanteCreacion($instante_creacion): void
     {
-        $this->descripcion = $descripcion;
+        $this->instante_creacion = $instante_creacion;
     }
+
+
 
 }

@@ -2,6 +2,7 @@
 
 use Gac\Routing\Request;
 
+require_once '/var/www/API_-Votos_bueno/vendor/autoload.php';
 
 class Middleware
 {

@@ -1,6 +1,7 @@
 <?php
 
-
+require_once "/var/www/API_-Votos_bueno/model/connection/DatabaseModel.php";
+require_once '/var/www/API_-Votos_bueno/model/PartidoIntegrantesModel.php';
 class PartidoIntegrantesModelHandler
 {
 

@@ -4,7 +4,7 @@
 use Gac\Routing\Request;
 use SimpleSAML\Auth\Simple;
 
-include_once "../vendor/autoload.php";
+require_once "/var/www/API_-Votos_bueno/handler/EleccionModelHandler.php";
 
 class EleccionController
 {
@@ -16,13 +16,6 @@ class EleccionController
     public function __construct(){
         self::$auth = AuthSingleton::getInstance();
         self::$eleccionHandler = new EleccionModelHandler();
-    }
-
-
-    public function (){
-
-
-
     }
 
 

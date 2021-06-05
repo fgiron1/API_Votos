@@ -1,8 +1,9 @@
 <?php
 
 
-require_once("../model/connection/DatabaseModel.php");
-require_once("../model/VotoModel.php");
+require_once "/var/www/API_-Votos_bueno/model/connection/DatabaseModel.php";
+require_once("/var/www/API_-Votos_bueno/model/VotoModel.php");
+
 use Gac\Routing\Request;
 
 class VotosModelHandler
