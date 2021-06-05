@@ -37,11 +37,11 @@ class DatabaseModel
         $path = realpath($relPath);
 
         //Checks for file existence and don't look outside relPath
-        if(!$path || substr($path, 0, strlen($relPath) != $relPath)){
-            header('HTTP/1.1 404 Not Found');
-            echo "The requested file could not be found";
-            die;
-        }
+        //if(!$path || substr($path, 0, strlen($relPath) != $relPath)){
+        //    header('HTTP/1.1 404 Not Found');
+        //    echo "The requested file could not be found";
+        //    die;
+        //}
 
         $config = include_once('/var/simplesaml/database_config.php');
 
