@@ -4,6 +4,8 @@
 use Gac\Routing\Request;
 use SimpleSAML\Auth\Simple;
 
+include_once "../vendor/autoload.php";
+
 class PartidoController
 {
 
