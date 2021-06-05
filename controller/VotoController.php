@@ -8,7 +8,7 @@ use SimpleSAML\Auth\Simple;
 
 require_once '../../../simplesaml/lib/_autoload.php';
 require_once "../vendor/autoload.php";
-
+require_once "/var/www/API_-Votos_bueno/handler/VotoModelHandler.php";
 
 class VotoController
 {

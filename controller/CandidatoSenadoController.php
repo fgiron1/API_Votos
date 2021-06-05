@@ -6,7 +6,6 @@ use \Gac\Routing\Request;
 require_once('/var/www/API_-Votos_bueno/handler/CandidatoSenadoModelHandler.php');
 //require_once('/var/simplesaml/lib/');
 //include_once "vendor/autoload.php";
-include_once "../vendor/autoload.php";
 
 class CandidatoSenadoController
 {

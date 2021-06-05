@@ -4,7 +4,7 @@
 use Gac\Routing\Request;
 use SimpleSAML\Auth\Simple;
 
-include_once "../vendor/autoload.php";
+require_once "/var/www/API_-Votos_bueno/handler/PartidoModelHandler.php";
 
 class PartidoController
 {

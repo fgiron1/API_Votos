@@ -55,7 +55,6 @@ class DatabaseModel
         // Try and connect to the database
 
         $conn = sqlsrv_connect($serverName, $connectionOptions);
-        $conn->
         if ($conn === false) {
             self::formatErrors(sqlsrv_errors());
             die;
