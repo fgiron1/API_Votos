@@ -8,7 +8,7 @@ class CuentaUsuarioHandler
     private $connection;
 
     public function __construct(){
-        $this->connection = DatabaseModel::getInstance()->getConnection();
+        $this->connection = IdentityDBModel::getInstance()->getConnection();
     }
 
     public function crearCuentaUsuario($user_hash, $pwd_hash){
