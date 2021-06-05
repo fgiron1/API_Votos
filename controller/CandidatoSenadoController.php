@@ -13,7 +13,7 @@ class CandidatoSenadoController
     public function __construct(){
 
         self::$auth = AuthSingleton::getInstance();
-        $candidatoSenadoHandler = new CandidatoSenadoModelHandler();
+        self::$candidatoSenadoHandler = new CandidatoSenadoModelHandler();
 
     }
 

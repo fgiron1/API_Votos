@@ -34,7 +34,6 @@ class PartidoController
             $request->send($results);
         }
 
-
     }
 
     public function getPartidoById(Request $request, $id_partido){

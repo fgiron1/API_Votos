@@ -17,7 +17,6 @@ class VotosModelHandler
     public function votar(Request $request){
 
 
-
         $query = "EXECUTE dbo.votar ";
         $stmt = sqlsrv_query($this->connection, $query);
 

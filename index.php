@@ -2,7 +2,6 @@
 
 use Gac\Routing\Exceptions\CallbackNotFound;
 use Gac\Routing\Exceptions\RouteNotFoundException;
-use Gac\Routing\Request;
 use Gac\Routing\Routes;
 
 include_once('utils/Middleware.php');
@@ -23,12 +22,11 @@ try {
     $routes->add('/momento_cierre', [EleccionController::class, 'getInstanteCierre'], Routes::GET);
     $routes->add('/elecciones_activas', [EleccionController::class, 'getAllEleccionesActivas'], Routes::GET);
 
-
-
     $routes->middleware(['check_vote_format'])
             ->add('/votar', [VotoController::class, 'votar', Routes::POST]);
 
     $routes->route();
+
 } catch (RouteNotFoundException $ex) {
     $routes->request->status(404, "Route not found")->send(["error" => ["message" => $ex->getMessage()]]);
 } catch (CallbackNotFound $ex) {
