@@ -4,21 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit27696ac8af731a927e0242c05654df0b
+class ComposerStaticInitf964c9ccb2ebe813a1203ad532bd4129
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'p' => 
-        array (
-            'phpseclib3\\' => 11,
-        ),
         'S' => 
         array (
             'SimpleSAML\\' => 11,
@@ -27,15 +22,6 @@ class ComposerStaticInit27696ac8af731a927e0242c05654df0b
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
-            'Particle\\Filter\\' => 16,
-            'ParagonIE\\ConstantTime\\' => 23,
-        ),
-        'L' => 
-        array (
-            'League\\OAuth2\\Server\\' => 21,
-            'League\\Event\\' => 13,
-            'Lcobucci\\JWT\\' => 13,
-            'Lcobucci\\Clock\\' => 15,
         ),
         'J' => 
         array (
@@ -49,17 +35,9 @@ class ComposerStaticInit27696ac8af731a927e0242c05654df0b
             'Gac\\Routing\\Exceptions\\' => 23,
             'Gac\\Routing\\' => 12,
         ),
-        'D' => 
-        array (
-            'Defuse\\Crypto\\' => 14,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'phpseclib3\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
-        ),
         'SimpleSAML\\' => 
         array (
             0 => __DIR__ . '/../..' . '/../../simplesaml/lib/SimpleSAML',
@@ -71,30 +49,6 @@ class ComposerStaticInit27696ac8af731a927e0242c05654df0b
         'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
-        ),
-        'Particle\\Filter\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/particle/filter/src',
-        ),
-        'ParagonIE\\ConstantTime\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
-        ),
-        'League\\OAuth2\\Server\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/oauth2-server/src',
-        ),
-        'League\\Event\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/event/src',
-        ),
-        'Lcobucci\\JWT\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
-        ),
-        'Lcobucci\\Clock\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/lcobucci/clock/src',
         ),
         'JsonSchema\\' => 
         array (
@@ -120,10 +74,6 @@ class ComposerStaticInit27696ac8af731a927e0242c05654df0b
         array (
             0 => __DIR__ . '/..' . '/gac/routing',
         ),
-        'Defuse\\Crypto\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/defuse/php-encryption/src',
-        ),
     );
 
     public static $classMap = array (
@@ -133,9 +83,9 @@ class ComposerStaticInit27696ac8af731a927e0242c05654df0b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit27696ac8af731a927e0242c05654df0b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit27696ac8af731a927e0242c05654df0b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit27696ac8af731a927e0242c05654df0b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf964c9ccb2ebe813a1203ad532bd4129::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf964c9ccb2ebe813a1203ad532bd4129::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf964c9ccb2ebe813a1203ad532bd4129::$classMap;
 
         }, null, ClassLoader::class);
     }
