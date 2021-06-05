@@ -3,7 +3,7 @@
 use Gac\Routing\Request;
 use SimpleSAML\Auth\Simple;
 require_once '/var/www/API_-Votos_bueno/utils/AuthSingleton.php';
-require_once '../handler/CuentaUsuarioHandler.php';
+require_once '/var/www/API_-Votos_bueno/handler/CuentaUsuarioHandler.php';
 
 //require_once '../../../simplesaml/lib/_autoload.php';
 
