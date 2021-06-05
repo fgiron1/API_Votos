@@ -1,11 +1,10 @@
 <?php
 
-
 use Gac\Routing\Request;
 use SimpleSAML\Auth\Simple;
-use phpseclib3\Crypt\AES;
+require_once '/var/www/API_-Votos_bueno/utils/AuthSingleton.php';
 
-require_once '../../../simplesaml/lib/_autoload.php';
+//require_once '../../../simplesaml/lib/_autoload.php';
 
 class HomeController
 {
@@ -41,7 +40,28 @@ class HomeController
 
         $auth = AuthSingleton::getInstance();
 
-        $auth->requireAuth();
+        $auth->requireAuth([
+            'ErrorURL' => '127.0.0.1:8000/failure',
+            'ReturnTo' => '127.0.0.1:8000/success'
+        ]);
+
+        try {
+            SimpleSAML\Session::getSessionFromRequest()->cleanup();
+        } catch (Exception $e) {
+            echo 'Error!' . $e->getMessage();
+        }
+
+    }
+
+    public function success(Request $request){
+
+        $request->send(['message' => 'Login successful']);
+
+    }
+
+    public function failure(Request $request){
+
+        $request->send(['message' => 'Login failed']);
 
     }
 

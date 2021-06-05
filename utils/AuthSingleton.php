@@ -1,29 +1,23 @@
 <?php
 
+    use SimpleSAML\Auth\Simple;
 
-use SimpleSAML\Auth\Simple;
-
-class AuthSingleton
-{
-    private static Simple $entryPoint;
-
-    // The constructor is private
-    // to prevent initiation with outer code.
-    private function __construct()
+    class AuthSingleton
     {
-        $entryPoint = new Simple('example-sql');
-    }
+        private static Simple $entryPoint;
 
-    // The object is created from within the class itself
-    // only if the class has no instance.
-    public static function getInstance()
-    {
-        if (self::$entryPoint == null)
+        // The constructor is private
+        // to prevent initiation with outer code.
+        private function __construct(){}
+
+        // The object is created from within the class itself
+        // only if the class has no instance.
+        public static function getInstance(): Simple
         {
-            self::$entryPoint = new Simple();
+            //if (self::$entryPoint == null) {
+                self::$entryPoint = new Simple('example-sql');
+            //}
+
+            return self::$entryPoint;
         }
-
-        return self::$entryPoint;
     }
-
-}
