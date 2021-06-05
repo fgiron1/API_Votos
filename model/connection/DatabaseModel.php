@@ -19,7 +19,7 @@ class DatabaseModel
     {
         // If no instance of Database, then make one
         if (!(self::$_instance instanceof self)) {
-            self::$_instance = new self('../../../../simplesaml/database_config.php');
+            self::$_instance = new self('/var/database_config.php');
         }
         return self::$_instance;
     }
