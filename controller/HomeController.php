@@ -5,7 +5,7 @@ use SimpleSAML\Auth\Simple;
 //require_once '/var/www/API_-Votos_bueno/utils/AuthSingleton.php';
 //require_once '/var/www/API_-Votos_bueno/handler/CuentaUsuarioHandler.php';
 
-include_once "../vendor/autoload.php";
+include_once "/var/www/API_-Votos_bueno/vendor/autoload.php";
 
 //require_once '../../../simplesaml/lib/_autoload.php';
 
