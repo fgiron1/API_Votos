@@ -45,6 +45,8 @@ class DatabaseModel
 
         $config = include_once('/var/simplesaml/database_config.php');
 
+        var_dump($config);
+
         $serverName = $config['serverName'];
 
         $connectionOptions = array(
