@@ -13,19 +13,18 @@ $routes = new Routes();
 
 try {
 
-    $routes->add('/login', [HomeController::class, 'login'], Routes::GET);
-    $routes->add('/registro', [HomeController::class, 'registro'], Routes::POST);
-    $routes->add('/partidosConIntegrantes/{int:id_partido}', [PartidoController::class, 'getPartidoIntegrantesById'], Routes::GET);
-    $routes->add('/partido/{int:id_partido}', [PartidoController::class, 'getPartidoById'], Routes::GET);
-    $routes->add('/partido/', [PartidoController::class, 'getAllPartidos'], Routes::GET);
-    $routes->add('/candidatos_senado', [CandidatoSenadoController::class, 'getAllCandidatos'], Routes::GET);
-    $routes->add('/momento_cierre', [EleccionController::class, 'getInstanteCierre'], Routes::GET);
-    $routes->add('/elecciones_activas', [EleccionController::class, 'getAllEleccionesActivas'], Routes::GET);
+    $routes->route('/login', [HomeController::class, 'login'], Routes::GET);
+    $routes->route('/registro', [HomeController::class, 'registro'], Routes::POST);
+    $routes->route('/partidosConIntegrantes/{int:id_partido}', [PartidoController::class, 'getPartidoIntegrantesById'], Routes::GET);
+    $routes->route('/partido/{int:id_partido}', [PartidoController::class, 'getPartidoById'], Routes::GET);
+    $routes->route('/partido/', [PartidoController::class, 'getAllPartidos'], Routes::GET);
+    $routes->route('/candidatos_senado', [CandidatoSenadoController::class, 'getAllCandidatos'], Routes::GET);
+    $routes->route('/momento_cierre', [EleccionController::class, 'getInstanteCierre'], Routes::GET);
+    $routes->route('/elecciones_activas', [EleccionController::class, 'getAllEleccionesActivas'], Routes::GET);
 
     $routes->middleware(['check_vote_format'])
             ->add('/votar', [VotoController::class, 'votar', Routes::POST]);
 
-    $routes->route();
 
 } catch (RouteNotFoundException $ex) {
     $routes->request->status(404, "Route not found")->send(["error" => ["message" => $ex->getMessage()]]);

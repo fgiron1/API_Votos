@@ -36,8 +36,6 @@ class HomeController
 
     }
 
-    //FIXME: EN EL MÉTODO DEL LOGIN ES DONDE SE USAN COSAS DEL SIMPLESAMLPHP
-
 
     public function login(Request $request){
 
