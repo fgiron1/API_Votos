@@ -22,8 +22,8 @@ class CandidatoSenadoModelHandler
             die;
         } else {
             //Each row is stored in $results array
-            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-                array_push($results, $row);
+            while($candidato = sqlsrv_fetch_object($stmt, 'CandidatoModel')){
+                array_push($results, $candidato);
             }
         }
 

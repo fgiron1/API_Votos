@@ -22,8 +22,8 @@ class PartidoIntegrantesModelHandler
             die;
         } else {
             //Each row is stored in $results array
-            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-                array_push($results, $row);
+            while($partidoIntegrantes = sqlsrv_fetch_object($stmt, 'PartidoIntegrantesModel')){
+                array_push($results, $partidoIntegrantes);
             }
         }
 

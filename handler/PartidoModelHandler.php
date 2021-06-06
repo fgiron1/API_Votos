@@ -18,14 +18,16 @@ class PartidoModelHandler
         $results = Array();
 
         $query = "SELECT id, nombre FROM Votos_partido WHERE id = ?";
+
+        //Binding parameters and executing query
         $stmt = sqlsrv_query($this->connection, $query, $id_partido);
 
         if($stmt === false){
             die;
         } else {
             //Each row is stored in $results array
-            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-                array_push($results, $row);
+            while($partido = sqlsrv_fetch_object($stmt, 'PartidoModel')){
+                array_push($results, $partido);
             }
         }
 
@@ -47,8 +49,8 @@ class PartidoModelHandler
             die;
         } else {
             //Each row is stored in $results array
-            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-                array_push($results, $row);
+            while($partido = sqlsrv_fetch_object($stmt, 'PartidoModel')){
+                array_push($results, $partido);
             }
         }
 

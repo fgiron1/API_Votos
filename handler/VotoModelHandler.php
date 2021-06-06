@@ -28,14 +28,14 @@ class VotosModelHandler
         $results = Array();
 
         $query = "SELECT id, id_eleccion, id_partido, id_votos_senado, instante_creacion FROM Votos WHERE id = ?";
-        $stmt = sqlsrv_query($this->connection, $query);
+        $stmt = sqlsrv_query($this->connection, $query, $id_voto);
 
         if($stmt === false){
             die;
         } else {
             //Each row is stored in $results array
-            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-                array_push($results, $row, $id_voto);
+            while($voto = sqlsrv_fetch_object($stmt, 'VotoModel')){
+                array_push($results, $voto);
             }
         }
 
@@ -49,15 +49,15 @@ class VotosModelHandler
 
         $results = Array();
 
-        $query = "SELECT id, id_eleccion, id_partido, id_votos_senado, instante_creacion FROM Votos WHERE id = ?";
+        $query = "SELECT id, id_eleccion, id_partido, id_votos_senado, instante_creacion FROM Votos";
         $stmt = sqlsrv_query($this->connection, $query);
 
         if($stmt === false){
             die;
         } else {
-            //Each row is stored in $results array
-            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-                array_push($results, $row, $id_voto);
+            //Each row is stored as VotoModel in $results array
+            while($voto = sqlsrv_fetch_object($stmt, 'VotoModel')){
+                array_push($results, $voto);
             }
         }
 

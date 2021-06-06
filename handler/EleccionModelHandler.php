@@ -27,10 +27,12 @@ class EleccionModelHandler
             die;
         } else {
             //Each row is stored in $results array
-            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-                array_push($results, $row);
+            while($eleccion = sqlsrv_fetch_object($stmt, 'EleccionModel')){
+                array_push($results, $eleccion);
             }
         }
+        sqlsrv_free_stmt($stmt);
+        sqlsrv_close($this->connection);
 
         return $results;
 

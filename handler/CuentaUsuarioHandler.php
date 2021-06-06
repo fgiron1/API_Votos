@@ -12,6 +12,8 @@ class CuentaUsuarioHandler
 
     public function crearCuentaUsuario($user_hash, $pwd_hash){
 
+        //No se necesita un "CuentaUsuarioModel"
+
         $params = array($user_hash, $pwd_hash);
 
         $query = "EXECUTE dbo.CrearCuentaUsuario ? ?";
