@@ -21,7 +21,9 @@ class EleccionController
 
     public static function getAllEleccionesActivas(Request $request){
 
-        self::$eleccionHandler->getAllEleccionesActivas();
+        $results = self::$eleccionHandler->getAllEleccionesActivas();
+        $request->send(['results' => $results]);
+
 
     }
 

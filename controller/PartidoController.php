@@ -34,7 +34,7 @@ class PartidoController
 
         if(self::$auth->isAuthenticated()){
             $results = self::$partidoIntegrantesHandler->getPartidoIntegrantes($id_partido);
-            $request->send($results);
+            $request->send(['results' => $results]);
         }
 
     }
@@ -43,7 +43,7 @@ class PartidoController
 
         if(self::$auth->isAuthenticated()) {
             $results = self::$partidoHandler->getPartidosById($id_partido);
-            $request->send($results);
+            $request->send(['results' => $results]);
         }
 
     }
@@ -52,7 +52,7 @@ class PartidoController
 
         if(self::$auth->isAuthenticated()) {
             $results = self::$partidoHandler->getAllPartidos();
-            $request->send($results);
+            $request->send(['results' => $results]);
         }
 
     }
