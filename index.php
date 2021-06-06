@@ -27,7 +27,8 @@ try {
     //        ->route('/', [PartidoController::class, 'getAllPartidos', Routes::GET])
 
 
-
+    $routes->add('/logout', [HomeController::class, 'logout'], Routes::GET);
+    $routes->add('/handleLogout', [HomeController::class, 'handleLogout'], Routes::GET);
     $routes->add('/login', [HomeController::class, 'login'], Routes::GET);
     $routes->add('/success', [HomeController::class, 'success']);
     $routes->add('/failure', [HomeController::class, 'failure']);

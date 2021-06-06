@@ -15,6 +15,7 @@ class HomeController
 
     private static Simple $auth;
     private static CuentaUsuarioHandler $cuentasHandler;
+    private static $attributes;
 
     public function __construct(){
 
@@ -49,6 +50,8 @@ class HomeController
             'ReturnTo' => 'https://spserver.westeurope.cloudapp.azure.com/success'
         ]);
 
+        self::$attributes = $auth->getAttributes();
+
         try {
             SimpleSAML\Session::getSessionFromRequest()->cleanup();
         } catch (Exception $e) {
@@ -57,9 +60,28 @@ class HomeController
 
     }
 
+    public function logout(Request $request){
+
+        $auth = AuthSingleton::getInstance();
+
+        $auth->logout([
+            'ReturnTo' => 'https://spserver.westeurope.cloudapp.azure.com/handleLogout'
+        ]);
+
+    }
+
+
+    public function handleLogout(Request $request){
+
+        $request->send(['logout' => '1']);
+    }
+
     public function success(Request $request){
 
-        $request->send(['message' => 'Login successful']);
+        $request->send([
+            'message' => 'Login successful',
+            'attributes' => self::$attributes
+            ]);
 
     }
 
