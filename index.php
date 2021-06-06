@@ -13,9 +13,11 @@ include_once('utils/Middleware.php');
 include_once "vendor/autoload.php";
 include_once 'controller/HomeController.php';
 require_once '/var/simplesaml/lib/_autoload.php';
+
 include_once 'controller/PartidoController.php';
 include_once 'controller/CandidatoSenadoController.php';
 include_once 'controller/EleccionController.php';
+include_once 'controller/VotoController.php';
 
 $routes = new Routes();
 
