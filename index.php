@@ -13,6 +13,7 @@ include_once('utils/Middleware.php');
 include_once "vendor/autoload.php";
 include_once 'controller/HomeController.php';
 require_once '/var/simplesaml/lib/_autoload.php';
+include_once 'controller/PartidoController.php';
 
 $routes = new Routes();
 
