@@ -10,15 +10,15 @@ require_once '/var/www/API_-Votos_bueno/handler/PartidoIntegrantesModelHandler.p
 class PartidoController
 {
 
-    private static Simple $auth;
-    private static PartidoModelHandler $partidoHandler;
-    private static PartidoIntegrantesModelHandler $partidoIntegrantesHandler;
+    private Simple $auth;
+    private PartidoModelHandler $partidoHandler;
+    private PartidoIntegrantesModelHandler $partidoIntegrantesHandler;
 
     public function __construct(){
 
-        self::$auth = AuthSingleton::getInstance();
-        self::$partidoHandler = new PartidoModelHandler();
-        self::$partidoIntegrantesHandler = new PartidoIntegrantesModelHandler();
+        $this->auth = AuthSingleton::getInstance();
+        $this->partidoHandler = new PartidoModelHandler();
+        $this->partidoIntegrantesHandler = new PartidoIntegrantesModelHandler();
 
     }
 
@@ -32,8 +32,8 @@ class PartidoController
 
     public function getPartidoIntegrantesById(Request $request, $id_partido){
 
-        if(self::$auth->isAuthenticated()){
-            $results = self::$partidoIntegrantesHandler->getPartidoIntegrantes($id_partido);
+        if($this->auth->isAuthenticated()){
+            $results = $this->partidoIntegrantesHandler->getPartidoIntegrantes($id_partido);
             $request->send(['results' => $results]);
         }
 
@@ -41,8 +41,8 @@ class PartidoController
 
     public function getPartidoById(Request $request, $id_partido){
 
-        if(self::$auth->isAuthenticated()) {
-            $results = self::$partidoHandler->getPartidosById($id_partido);
+        if($this->auth->isAuthenticated()) {
+            $results = $this->partidoHandler->getPartidosById($id_partido);
             $request->send(['results' => $results]);
         }
 
@@ -50,8 +50,8 @@ class PartidoController
 
     public function getAllPartidos(Request $request){
 
-        if(self::$auth->isAuthenticated()) {
-            $results = self::$partidoHandler->getAllPartidos();
+        if($this->auth->isAuthenticated()) {
+            $results = $this->partidoHandler->getAllPartidos();
             $request->send(['results' => $results]);
         }
 

@@ -9,21 +9,22 @@ require_once "/var/www/API_-Votos_bueno/handler/EleccionModelHandler.php";
 class EleccionController
 {
 
-    private static Simple $auth;
-    private static EleccionModelHandler $eleccionHandler;
+    private Simple $auth;
+    private EleccionModelHandler $eleccionHandler;
 
 
     public function __construct(){
-        self::$auth = AuthSingleton::getInstance();
-        self::$eleccionHandler = new EleccionModelHandler();
+        $this->auth = AuthSingleton::getInstance();
+        $this->eleccionHandler = new EleccionModelHandler();
     }
 
 
-    public static function getAllEleccionesActivas(Request $request){
+    public function getAllEleccionesActivas(Request $request){
 
-        $results = self::$eleccionHandler->getAllEleccionesActivas();
-        $request->send(['results' => $results]);
-
+        if($this->auth->isAuthenticated()){
+            $results = $this->eleccionHandler->getAllEleccionesActivas();
+            $request->send(['results' => $results]);
+        }
 
     }
 

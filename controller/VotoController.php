@@ -13,13 +13,13 @@ require_once "/var/www/API_-Votos_bueno/handler/VotoModelHandler.php";
 class VotoController
 {
 
-    private static Simple $auth;
-    private static VotosModelHandler $votoHandler;
+    private Simple $auth;
+    private VotosModelHandler $votoHandler;
 
     public function __construct(){
 
-        self::$auth = AuthSingleton::getInstance();
-        self::$votoHandler = new VotosModelHandler();
+        $this->auth = AuthSingleton::getInstance();
+        $this->votoHandler = new VotosModelHandler();
 
     }
 
@@ -43,7 +43,7 @@ class VotoController
      */
     public function votar(Request $Request){
 
-        if(self::$auth->isAuthenticated()){
+        if($this->auth->isAuthenticated()){
             //1. Open connection to the database
             //2. Parse and sanitize request object's body
             //3. Proccess JSON and persist sent data

@@ -9,20 +9,20 @@ require_once('/var/www/API_-Votos_bueno/handler/CandidatoSenadoModelHandler.php'
 class CandidatoSenadoController
 {
 
-    private static Simple $auth;
-    private static CandidatoSenadoModelHandler $candidatoSenadoHandler;
+    private Simple $auth;
+    private CandidatoSenadoModelHandler $candidatoSenadoHandler;
 
     public function __construct(){
 
-        self::$auth = AuthSingleton::getInstance();
-        self::$candidatoSenadoHandler = new CandidatoSenadoModelHandler();
+        $this->auth = AuthSingleton::getInstance();
+        $this->candidatoSenadoHandler = new CandidatoSenadoModelHandler();
 
     }
 
     public function getAllCandidatos(Request $request){
 
-        if(self::$auth->isAuthenticated()){
-            $results = self::$candidatoSenadoHandler->getAllCandidatosSenado();
+        if($this->auth->isAuthenticated()){
+            $results = $this->candidatoSenadoHandler->getAllCandidatosSenado();
             $request->send($results);
         }
 
