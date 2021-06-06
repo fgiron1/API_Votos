@@ -40,7 +40,6 @@ try {
     $routes->add('/partido/{int:id_partido}', [PartidoController::class, 'getPartidoById'], Routes::GET);
     $routes->add('/partido/', [PartidoController::class, 'getAllPartidos'], Routes::GET);
     $routes->add('/candidatos_senado', [CandidatoSenadoController::class, 'getAllCandidatos'], Routes::GET);
-    $routes->add('/momento_cierre', [EleccionController::class, 'getInstanteCierre'], Routes::GET);
     $routes->add('/elecciones_activas', [EleccionController::class, 'getAllEleccionesActivas'], Routes::GET);
 
     $routes//->middleware(['check_vote_format', Middleware::class])

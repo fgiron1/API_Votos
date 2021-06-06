@@ -19,7 +19,7 @@ class CandidatoSenadoController
 
     }
 
-    public function getAllCandidatosSenado(Request $request){
+    public function getAllCandidatos(Request $request){
 
         if(self::$auth->isAuthenticated()){
             $results = self::$candidatoSenadoHandler->getAllCandidatosSenado();

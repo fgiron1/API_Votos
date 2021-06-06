@@ -41,7 +41,7 @@ class VotoController
      *
      *
      */
-    public function vote(Request $Request){
+    public function votar(Request $Request){
 
         if(self::$auth->isAuthenticated()){
             //1. Open connection to the database
@@ -53,15 +53,5 @@ class VotoController
 
     }
 
-    /*
-     * Authentication endpoint
-     *
-     */
-
-    public function auth(Request $Request){
-
-        self::$auth->requireAuth();
-
-    }
 
 }
