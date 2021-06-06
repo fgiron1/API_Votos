@@ -15,7 +15,7 @@ include_once 'controller/HomeController.php';
 require_once '/var/simplesaml/lib/_autoload.php';
 include_once 'controller/PartidoController.php';
 include_once 'controller/CandidatoSenadoController.php';
-include_once 'controller/EleccionController';
+include_once 'controller/EleccionController.php';
 
 $routes = new Routes();
 
