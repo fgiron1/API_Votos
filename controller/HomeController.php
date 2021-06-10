@@ -6,6 +6,8 @@ require_once '/var/www/API_-Votos_bueno/utils/AuthSingleton.php';
 require_once '/var/www/API_-Votos_bueno/handler/CuentaUsuarioHandler.php';
 
 include_once "/var/www/API_-Votos_bueno/vendor/autoload.php";
+include_once "/var/simplesaml/lib/_autoload.php";
+include_once "/var/simplesaml/lib/_autoload_modules.php";
 require_once "/var/www/API_-Votos_bueno/utils/AuthSingleton.php";
 
 //require_once '../../../simplesaml/lib/_autoload.php';
@@ -43,6 +45,7 @@ class HomeController
     public function login(Request $request){
 
         $this->auth->requireAuth([
+            'KeepPOST' => TRUE,
             'ErrorURL' => 'https://spserver.westeurope.cloudapp.azure.com/failure',
             'ReturnTo' => 'https://spserver.westeurope.cloudapp.azure.com/success'
         ]);

@@ -1,5 +1,5 @@
 <?php
-
+/*
 use Gac\Routing\Exceptions\CallbackNotFound;
 use Gac\Routing\Exceptions\RouteNotFoundException;
 use Gac\Routing\Request;
@@ -13,6 +13,7 @@ include_once('utils/Middleware.php');
 include_once "vendor/autoload.php";
 include_once 'controller/HomeController.php';
 require_once '/var/simplesaml/lib/_autoload.php';
+include_once "/var/simplesaml/lib/_autoload_modules.php";
 
 include_once 'controller/PartidoController.php';
 include_once 'controller/CandidatoSenadoController.php';
@@ -24,12 +25,8 @@ $routes = new Routes();
 try {
 
     $routes->add('/', function (Request $request) {
-        echo json_encode([ 'message' => 'Hello World' ]);
+        echo json_encode([ 'message' => 'Welcome' ]);
     });
-
-    //$routes
-    //        ->prefix('/partido')
-    //        ->route('/', [PartidoController::class, 'getAllPartidos', Routes::GET])
 
 
     $routes->add('/logout', [HomeController::class, 'logout'], Routes::GET);
@@ -58,3 +55,4 @@ try {
     $routes->request->status($code)->send(["error" => ["message" => $ex->getMessage()]]);
 }
 
+*/
