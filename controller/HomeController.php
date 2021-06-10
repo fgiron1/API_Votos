@@ -48,6 +48,7 @@ class HomeController
         ]);
 
         $this->attributes = $this->auth->getAttributes();
+        var_dump($this->attributes);
 
         try {
             SimpleSAML\Session::getSessionFromRequest()->cleanup();
