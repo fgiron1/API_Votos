@@ -2,6 +2,12 @@
 
     use SimpleSAML\Auth\Simple;
 
+/**
+ * Implementación del patrón Singleton sobre el objeto que maneja la autenticación de SimpleSAMLPHP
+ * Así, conseguimos un único punto de entrada al proceso de autenticación.
+ *
+ * Class AuthSingleton
+ */
     class AuthSingleton
     {
         private static Simple $entryPoint;

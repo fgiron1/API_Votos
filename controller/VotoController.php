@@ -24,29 +24,38 @@ class VotoController
     }
 
     /**
-     * Vote endpoint
      *
-     * Sólo accesible tras la autenticación del usuario.
-     * Recibe la información del voto encriptada, que se desencripta y verifica.
-     * La verificación consiste en un filtrado del fichero JSON : debe contener exactamente los campos que se esperan, en función del tipo de votación que sea.
-     * Se controlarán, a su vez, los valores de cada campo, ya sean valores predefinidos (Partidos, consultable), o bien libres (candidatos del senado).
-     * Si pasa el filtrado, se persiste en la base de datos Votos, si no, devuelve un código de error.
+     * Sólo accesible tras la autenticación del usuario. Recibe la información
+     * del voto y la verifica. La verificación consiste en una comparación del JSON
+     * recibido contra un JSON schema, en función del tipo de votación que sea.
+     * Se controlarán, a su vez, los valores de cada campo. Si pasa el filtrado, se
+     * persiste en la base de datos Votos, si no, devuelve un código de error.
      *
-     * Inputs
+     * Precondición: El cuerpo de la petición debe estar compuesto por un fichero
+     * JSON que contiene la información del voto sin encriptar.
      *
-     * \Gac\Routing\Request $Request
+     * Postcondición: La misma cuenta de usuario NO puede volver a votar en las
+     * mismas elecciones.
      *
-     * Output
-     *
-     *
+     * @param Request $request
      *
      */
-    public function votar(Request $Request){
+    public function votar(Request $request){
 
         if($this->auth->isAuthenticated()){
-            //1. Open connection to the database
-            //2. Parse and sanitize request object's body
-            //3. Proccess JSON and persist sent data
+
+            //TODO: WIP
+
+            /*//Vote information has already been sanitized in
+            //middleware function "check_vote_format"
+
+            $body = $request->get('body');
+            $body_decoded = json_decode($body);
+
+            //TODO: ExtractParameters
+
+            $this->votoHandler->votar();*/
+
         } else {
             //Not authenticated:
         }

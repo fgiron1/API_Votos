@@ -1,5 +1,4 @@
 <?php
-/*
 use Gac\Routing\Exceptions\CallbackNotFound;
 use Gac\Routing\Exceptions\RouteNotFoundException;
 use Gac\Routing\Request;
@@ -24,8 +23,10 @@ $routes = new Routes();
 
 try {
 
+    //Asignando funciones a su ruta correspondiente
+
     $routes->add('/', function (Request $request) {
-        echo json_encode([ 'message' => 'Welcome' ]);
+        echo json_encode([ 'message' => 'Welcome to +Votos API' ]);
     });
 
 
@@ -35,13 +36,14 @@ try {
     $routes->add('/success', [HomeController::class, 'success']);
     $routes->add('/failure', [HomeController::class, 'failure']);
     $routes->add('/registro', [HomeController::class, 'registro'], Routes::POST);
+    $routes->add('/verificar', [HomeController::class, 'verificar'], Routes::POST);
     $routes->add('/partidosConIntegrantes/{int:id_partido}', [PartidoController::class, 'getPartidoIntegrantesById'], Routes::GET);
     $routes->add('/partido/{int:id_partido}', [PartidoController::class, 'getPartidoById'], Routes::GET);
     $routes->add('/partido/', [PartidoController::class, 'getAllPartidos'], Routes::GET);
     $routes->add('/candidatos_senado', [CandidatoSenadoController::class, 'getAllCandidatos'], Routes::GET);
     $routes->add('/elecciones_activas', [EleccionController::class, 'getAllEleccionesActivas'], Routes::GET);
 
-    $routes//->middleware(['check_vote_format', Middleware::class])
+    $routes//NO IMPLEMENTADO: ->middleware(['check_vote_format', Middleware::class])
             ->add('/votar', [VotoController::class, 'votar', Routes::POST]);
 
     $routes->handle();
@@ -54,5 +56,3 @@ try {
     $code = $ex->getCode() ?? 500;
     $routes->request->status($code)->send(["error" => ["message" => $ex->getMessage()]]);
 }
-
-*/

@@ -19,6 +19,13 @@ class EleccionController
     }
 
 
+    /**
+     * Sólo accesible tras la autenticación del usuario. Envía una petición con un fichero JSON
+     * que contiene la información de las elecciones actualmente activas.
+     *
+     * @param Request $request
+     */
+
     public function getAllEleccionesActivas(Request $request){
 
         if($this->auth->isAuthenticated()){

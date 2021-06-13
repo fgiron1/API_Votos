@@ -19,7 +19,7 @@ class IdentityDBModel
     {
         // If no instance of Database, then make one
         if (!(self::$_instance instanceof self)) {
-            self::$_instance = new self('/var/simplesaml/identity_config.php');
+            self::$_instance = new self();
         }
         return self::$_instance;
     }
@@ -27,28 +27,12 @@ class IdentityDBModel
 
     // Constructor
     // We could improve it by passing the config file path as a parameter
-    private function __construct($relPath)
+    private function __construct()
     {
         //config.ini could be used
 
-        //Sanitizing path input
-
-        //If file doesn't exist, realpath returns false
-        $path = realpath($relPath);
-
-        //Checks for file existence and don't look outside relPath
-        //if(!$path || substr($path, 0, strlen($relPath) != $relPath)){
-        //    header('HTTP/1.1 404 Not Found');
-        //    echo "The requested file could not be found";
-        //    die;
-        //}
-
         $config = include_once('/var/simplesaml/identidades_config.php');
-
-        var_dump($config);
-
         $serverName = $config['serverName'];
-
         $connectionOptions = array(
           'database' => $config['database'],
           'uid' => $config['uid'],

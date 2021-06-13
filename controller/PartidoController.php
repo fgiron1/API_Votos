@@ -22,14 +22,14 @@ class PartidoController
 
     }
 
-    public function addPartido(PartidoModel $partido){
-
-    }
-
-    public function removePartido($id){
-
-    }
-
+    /**
+     * Sólo accesible tras la autenticación del usuario. Devuelve un fichero JSON
+     * que contiene la información del partido político cuya id coincide con la
+     * especificada en la uri, junto con la de los representantes de ese partido
+     *
+     * @param Request $request
+     * @param $id_partido
+     */
     public function getPartidoIntegrantesById(Request $request, $id_partido){
 
         if($this->auth->isAuthenticated()){
@@ -39,6 +39,14 @@ class PartidoController
 
     }
 
+    /**
+     *
+     * Sólo accesible tras la autenticación del usuario. Devuelve un fichero JSON
+     * que contiene  el partido político cuya id coincide con la que se indica en la URI.
+     *
+     * @param Request $request
+     * @param $id_partido
+     */
     public function getPartidoById(Request $request, $id_partido){
 
         if($this->auth->isAuthenticated()) {
@@ -48,6 +56,12 @@ class PartidoController
 
     }
 
+    /**
+     * Sólo accesible tras la autenticación del usuario. Devuelve un fichero JSON
+     * que contiene todos los partidos políticos que participan en las elecciones del momento, si hay alguno.
+     *
+     * @param Request $request
+     */
     public function getAllPartidos(Request $request){
 
         if($this->auth->isAuthenticated()) {

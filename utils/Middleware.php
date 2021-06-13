@@ -10,6 +10,8 @@ class Middleware
     //Le pasarla peticion no al cliente sino a
     public function check_vote_format(Request $request){
 
+        //TODO: WIP
+        /*
         $body = $request->get('body');
         $body_decoded = json_decode($body);
 
@@ -17,7 +19,7 @@ class Middleware
 
         $results = $validator->validate($body_decoded, (object)['$ref' => 'file://' . realpath('../schemas/votoNacionalAutonomicoSchema.json')]);
 
-        $request->send(['message' => $results]);;
+        $request->send(['message' => $results]);;*/
 
 
     }

@@ -10,7 +10,7 @@ class DatabaseModel
     private $_connection;
     private static $_instance; //The single instance
 
-    /*
+    /**
     Get an instance of the Database
     @return Instance
     */
@@ -19,7 +19,7 @@ class DatabaseModel
     {
         // If no instance of Database, then make one
         if (!(self::$_instance instanceof self)) {
-            self::$_instance = new self('/var/simplesaml/database_config.php');
+            self::$_instance = new self();
         }
         return self::$_instance;
     }
@@ -27,35 +27,18 @@ class DatabaseModel
 
     // Constructor
     // We could improve it by passing the config file path as a parameter
-    private function __construct($relPath)
+    private function __construct()
     {
         //config.ini could be used
 
-        //Sanitizing path input
-
-        //If file doesn't exist, realpath returns false
-        $path = realpath($relPath);
-
-        //Checks for file existence and don't look outside relPath
-        //if(!$path || substr($path, 0, strlen($relPath) != $relPath)){
-        //    header('HTTP/1.1 404 Not Found');
-        //    echo "The requested file could not be found";
-        //    die;
-        //}
-
         $config = include_once('/var/simplesaml/database_config.php');
-
-        var_dump($config);
-
         $serverName = $config['serverName'];
-
         $connectionOptions = array(
           'database' => $config['database'],
           'uid' => $config['uid'],
           'pwd' => $config['pwd']
         );
         // Try and connect to the database
-
         $conn = sqlsrv_connect($serverName, $connectionOptions);
         if ($conn === false) {
             self::formatErrors(sqlsrv_errors());

@@ -15,12 +15,29 @@ class VotosModelHandler
         $this->connection = DatabaseModel::getInstance()->getConnection();
     }
 
-    public function votar(Request $request){
+    public function votar($id_elecciones, $id_partido, $nombre_1, $nombre_2, $nombre_3, $apellidos_1, $apellidos_2, $apellidos_3,  ){
 
+        //TODO: WIP
+        //TODO: Filter input parameters for null values
 
-        $query = "EXECUTE dbo.votar ";
+        /*$params = Array($id_elecciones, $id_partido, $nombre_1, $nombre_2,);
+        $query = "EXECUTE dbo.votar ? ? ? ? ? ? ? ?";
         $stmt = sqlsrv_query($this->connection, $query);
 
+
+
+        $query = "EXECUTE dbo.CrearCuentaUsuario ? ?";
+        $stmt = sqlsrv_query($this->connection, $query, $params);
+
+        if($stmt === false){
+            die;
+        }
+
+        sqlsrv_free_stmt($stmt);
+        sqlsrv_close($this->connection);
+
+        //Returns false on failed query execution
+        return $stmt;*/
     }
 
     public function getVotoById($id_voto){

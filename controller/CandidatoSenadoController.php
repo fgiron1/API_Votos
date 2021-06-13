@@ -19,6 +19,14 @@ class CandidatoSenadoController
 
     }
 
+    /**
+     * Sólo accesible tras la autenticación del usuario. Envía una petición con todos los candidatos
+     * que se presentan al senado en las elecciones del momento, si hay alguno.
+     *
+     * @param Request $request
+     *
+     */
+
     public function getAllCandidatos(Request $request){
 
         if($this->auth->isAuthenticated()){
@@ -27,7 +35,5 @@ class CandidatoSenadoController
         }
 
     }
-
-
 
 }
